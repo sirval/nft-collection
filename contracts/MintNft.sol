@@ -6,20 +6,32 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./IWhitelist.sol";
 
 contract MintNft is ERC721Enumerable, Ownable {
-    //define NFT baseUri
-    string baseTokenUri;
+    //define NFT baseURI
+    string _baseTokenUri;
 
     IWhitelist whitelist;
+
     bool public presaleStarted;
+
     uint256 public presaleEnded;
+
     uint256 public maxTokenIds = 20;
+
     uint256 public tokenIds;
+
     uint256 public _price = 0.01 ether;
 
-    constructor(string memory baseUri, address whitelistContract)
+    bool public _paused;
+
+    modifier onlyWhenNotPaused() {
+        require(!_paused, "COntract currently paused");
+        _;
+    }
+
+    constructor(string memory baseURI, address whitelistContract)
         ERC721("Valoski", "OVI")
     {
-        baseTokenUri = baseUri;
+        _baseTokenUri = baseURI;
         whitelist = IWhitelist(whitelistContract);
     }
 
@@ -32,7 +44,7 @@ contract MintNft is ERC721Enumerable, Ownable {
 
     //Allow those addresses that joined the presale to
     //to mint NFT for 5 minutes
-    function presaleMint() public payable {
+    function presaleMint() public payable onlyWhenNotPaused {
         //check if presale has started and still ongoing
         require(
             presaleStarted && block.timestamp <= presaleEnded,
@@ -52,7 +64,7 @@ contract MintNft is ERC721Enumerable, Ownable {
         _safeMint(msg.sender, tokenIds);
     }
 
-    function mint() public payable {
+    function mint() public payable onlyWhenNotPaused {
         //check if presale has started and still ongoing
         require(
             presaleStarted && block.timestamp >= presaleEnded,
@@ -65,6 +77,27 @@ contract MintNft is ERC721Enumerable, Ownable {
         //increment the tokenId
         tokenIds += 1;
         _safeMint(msg.sender, tokenIds);
+    }
+
+    function _baseURI() internal view override returns (string memory) {
+        return _baseTokenUri;
+    }
+
+    //restrict withdrawal to the onwer of the contract only
+    function withdraw() public onlyOwner {
+        address _owner = owner(); //get the address of the owner
+        uint256 amount = address(this).balance; //get the balance
+        (
+            bool sent, /**add data here if available */
+
+        ) = _owner.call{value: amount}("");
+        //check if ether was sent successfully
+        require(sent, "Failed to send ether");
+    }
+
+    //pause function exploitation when something goes wrong with my contract
+    function setPaused(bool val) public onlyOwner {
+        _paused = val;
     }
 
     receive() external payable {}
