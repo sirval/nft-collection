@@ -24,7 +24,9 @@ contract MintNft is ERC721Enumerable, Ownable {
     bool public _paused;
 
     modifier onlyWhenNotPaused() {
-        require(!_paused, "COntract currently paused");
+        require(!_paused, "Contract currently paused");
+        //tells the EVM to execute other functions in the contract
+        //once the required statement above is passed
         _;
     }
 
