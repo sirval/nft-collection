@@ -390,7 +390,7 @@ export default function Home() {
 
       <footer className={styles.footer}>
         Made with <i style={{ color: "#FF7663" }}> &#10084; </i> &nbsp;by &nbsp;
-        <a href="https://ohukaiv.netlify.app/" target="_blank">
+        <a href="https://ohukaiv.netlify.app/" target="_blank" rel="noreferrer">
           Ikenna Valentine
         </a>
       </footer>
