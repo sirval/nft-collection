@@ -49,7 +49,7 @@ contract MintNft is ERC721Enumerable, Ownable {
     function presaleMint() public payable onlyWhenNotPaused {
         //check if presale has started and still ongoing
         require(
-            presaleStarted && block.timestamp <= presaleEnded,
+            presaleStarted && block.timestamp < presaleEnded,
             "Sorry, the presale has ended"
         );
         //check if address already joined the whitelist
