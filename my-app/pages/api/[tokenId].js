@@ -4,7 +4,7 @@ export default function handler(req, res) {
   console.error("error");
   const name = `Valoski NFT #${tokenId}`;
   const description =
-    "Valoski NFT is my first NFT in my course of learning web3 and Blockchain development";
+    "Valoski NFT is my first detailed NFT in my course of learning web3 and Blockchain development";
   const image = `https://raw.githubusercontent.com/sirval/nft-collection/main/my-app/public/images/${
     Number(tokenId) - 1
   }.svg`;

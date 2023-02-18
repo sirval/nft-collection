@@ -1,4 +1,3 @@
-const WHITELIST_CONTRACT_ADDRESS = "0x5743b25DA19C9a60F84E680E244CE03B40f1C4F0";
-const METADATA = "";
-// https://nft-collection-sneh1999.vercel.app/api/
+const WHITELIST_CONTRACT_ADDRESS = "0x993D141c4EEA5E0Ee859e5089ed110244Af36844";
+const METADATA = "https://valoski-nft.vercel.app/api/";
 module.exports = { WHITELIST_CONTRACT_ADDRESS, METADATA };
