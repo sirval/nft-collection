@@ -9,7 +9,7 @@ export default function handler(req, res) {
     Number(tokenId) - 1
   }.svg`;
 
-  return res.status(200).json({
+  return res.json({
     name: name,
     description: description,
     image: image,
