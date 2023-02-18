@@ -1,7 +1,6 @@
 export default function handler(req, res) {
   const tokenId = req.query.tokenId;
 
-  console.error("error");
   const name = `Valoski NFT #${tokenId}`;
   const description =
     "Valoski NFT is my first detailed NFT in my course of learning web3 and Blockchain development";
